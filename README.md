@@ -12,7 +12,7 @@
 - Real-time visual and audio feedback
 - User-friendly interface for communication and learning
 ## Technologies Used
-Python, Flask, OpenCV, YOLOv11, PyTorch, HTML, CSS, JavaScript, gTTS/pyttsx3, Flask-SocketIO, and Large Language Models (LLM) for real-time gesture recognition, sentence generation, and speech output.
+Python, Flask, OpenCV, YOLOv11, PyTorch, HTML, CSS, JavaScript, gTTS/pyttsx3 and Large Language Models (LLM) for real-time gesture recognition, sentence generation, and speech output.
 ## How the System Works
 1. The webcam captures live hand gestures.
 2. OpenCV processes the video frames.
