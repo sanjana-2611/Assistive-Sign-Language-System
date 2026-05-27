@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Live Prediction • Sign Language Coach{% endblock %}
+
+{% block content %}
+<section class="page-section predict-page">
+
+  <div class="page-header">
+    <h1>Live Sign Translation Studio</h1>
+    <p>Hold a sign for 1.5 s to commit a letter &nbsp;·&nbsp; Use <strong>Word Break</strong> to finish a word &nbsp;·&nbsp; <strong>Build Sentence</strong> sends all words to AI</p>
+  </div>
+
+  <div class="predict-layout">
+
+    <!-- ══════════════════════════════════
+         LEFT — Camera + annotated feed
+    ══════════════════════════════════ -->
+    <div class="predict-left glass-card">
+
+      <div class="predict-header">
+        <span class="pill pill-live" id="live-pill">
+          <span class="ping-dot"></span>
+          Live
+        </span>
+        <span class="predict-status" id="status-text">Camera idle</span>
+      </div>
+
+      <!-- Camera / annotated overlay -->
+      <div class="predict-video-shell">
+        <video  id="camera"  autoplay playsinline muted></video>
+        <canvas id="capture-canvas" style="display:none;"></canvas>
+        <!-- Annotated frame returned by server replaces camera view -->
+        <img    id="annotated-image" alt="Annotated feed" />
+      </div>
+
+      <!-- Hold-progress bar -->
+      <div class="hold-bar-track" title="Hold progress">
+        <div class="hold-bar-fill" id="hold-bar"></div>
+        <span class="hold-bar-label" id="hold-label-text">—</span>
+      </div>
+
+      <!-- Current detection badge -->
+      <div class="detection-badge" id="detection-badge">
+        <span class="det-letter" id="det-letter">?</span>
+        <span class="det-conf"   id="det-conf">0%</span>
+      </div>
+
+      <!-- Camera controls -->
+      <div class="predict-actions">
+        <button class="btn btn-primary"  id="btn-start">▶ Start Camera</button>
+        <button class="btn btn-ghost"    id="btn-stop"  disabled>■ Stop</button>
+      </div>
+
+    </div><!-- /predict-left -->
+
+    <!-- ══════════════════════════════════
+         RIGHT — Builder + Output
+    ══════════════════════════════════ -->
+    <div class="predict-right">
+
+      <!-- ── Current word being typed ── -->
+      <div class="glass-card result-card">
+        <div class="card-row">
+          <h2>Current Word</h2>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-outline" id="btn-backspace" title="Delete last letter">⌫ Back</button>
+            <button class="btn btn-sm btn-accent"  id="btn-word-break">Space ›</button>
+          </div>
+        </div>
+        <div class="current-word-display" id="current-word-display">
+          <span class="cw-placeholder">Sign a letter…</span>
+        </div>
+        <!-- Per-letter chips for current word -->
+        <div class="letter-chips" id="letter-chips"></div>
+      </div>
+
+      <!-- ── Completed words (tokens) ── -->
+      <div class="glass-card result-card">
+        <div class="card-row">
+          <h2>Words</h2>
+          <button class="btn btn-sm btn-ghost" id="btn-clear-words">Clear</button>
+        </div>
+        <div id="tokens-list" class="tokens-list">
+          <span class="tokens-placeholder">No words yet.</span>
+        </div>
+      </div>
+
+      <!-- ── AI Sentence ── -->
+      <div class="glass-card result-card">
+        <div class="card-row">
+          <h2>AI Sentence</h2>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary" id="btn-sentence">✦ Build Sentence</button>
+            <button class="btn btn-sm btn-ghost"   id="btn-speak" disabled>🔊 Speak</button>
+          </div>
+        </div>
+        <div id="sentence-box" class="sentence-box">
+          <span class="sentence-placeholder">Waiting for words…</span>
+        </div>
+        <div class="spinner" id="sentence-spinner" style="display:none;"></div>
+      </div>
+
+    </div><!-- /predict-right -->
+  </div><!-- /predict-layout -->
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+{% endblock %}

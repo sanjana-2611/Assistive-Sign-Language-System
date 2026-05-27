@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Live Prediction • Sign Language Coach{% endblock %}
+
+{% block content %}
+<section class="page-section">
+  <div class="page-header">
+    <h1>Live Sign Translation Studio</h1>
+    <p>Hold a sign for 1.5 seconds to commit a letter. Build words, then generate a sentence.</p>
+  </div>
+
+  <div class="predict-layout">
+
+    <!-- LEFT: Camera -->
+    <div class="predict-left glass-card">
+      <div class="predict-header">
+        <span class="pill pill-live">
+          <span class="ping-dot"></span>
+          Live
+        </span>
+        <span class="predict-status" id="status-text">Camera idle</span>
+      </div>
+
+      <div class="predict-video-shell">
+        <video id="camera" autoplay playsinline muted></video>
+        <canvas id="capture-canvas"></canvas>
+      </div>
+
+      <!-- Hold progress bar -->
+      <div class="hold-bar-wrap" id="hold-bar-wrap">
+        <div class="hold-bar-label">
+          <span id="hold-letter-label">–</span>
+          <span id="hold-pct">0%</span>
+        </div>
+        <div class="hold-bar-track">
+          <div class="hold-bar-fill" id="hold-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="predict-actions">
+        <button class="btn btn-primary" id="btn-start">Start Camera</button>
+        <button class="btn btn-ghost"   id="btn-stop"  disabled>Stop</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Word Builder + Sentence -->
+    <div class="predict-right">
+
+      <!-- Current word being typed -->
+      <div class="glass-card result-card">
+        <div class="word-builder-header">
+          <h2>Current Word</h2>
+          <button class="btn btn-sm btn-ghost" id="btn-backspace" title="Delete last letter">⌫</button>
+        </div>
+        <div id="current-word-display" class="current-word-display">
+          <span class="word-placeholder">Start signing…</span>
+        </div>
+        <div class="word-actions">
+          <button class="btn btn-primary" id="btn-add-word">Add Word →</button>
+          <button class="btn btn-ghost"   id="btn-clear-word">Clear</button>
+        </div>
+      </div>
+
+      <!-- Words collected -->
+      <div class="glass-card result-card">
+        <div class="word-builder-header">
+          <h2>Words</h2>
+          <button class="btn btn-sm btn-ghost" id="btn-clear-words">Clear All</button>
+        </div>
+        <div id="words-list" class="tokens-list">
+          <span class="tokens-placeholder">No words yet.</span>
+        </div>
+      </div>
+
+      <!-- LLM Sentence -->
+      <div class="glass-card result-card">
+        <h2>LLM Sentence</h2>
+        <div id="sentence-box" class="sentence-box">
+          <span class="sentence-placeholder">Waiting…</span>
+        </div>
+        <div class="sentence-actions">
+          <button class="btn btn-primary" id="btn-sentence">Build Sentence</button>
+          <button class="btn btn-ghost"   id="btn-speak" disabled>Speak</button>
+        </div>
+      </div>
+
+      <!-- Annotated camera feed -->
+      <div class="glass-card result-card small">
+        <img id="annotated-image" alt="Annotated feed" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ── Hold bar ─────────────────────────────────────── */
+.hold-bar-wrap {
+  padding: 10px 16px 4px;
+}
+.hold-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--text-muted, #aaa);
+  margin-bottom: 5px;
+}
+#hold-letter-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent, #7c6af5);
+  letter-spacing: 2px;
+}
+.hold-bar-track {
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.hold-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #7c6af5, #a78bfa);
+  transition: width 0.1s linear, background 0.2s;
+}
+.hold-bar-fill.ready {
+  background: linear-gradient(90deg, #34d399, #6ee7b7);
+}
+
+/* ── Current word display ─────────────────────────── */
+.word-builder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.current-word-display {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 4px;
+  color: var(--text-primary, #fff);
+}
+.word-placeholder, .tokens-placeholder, .sentence-placeholder {
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--text-muted, #888);
+}
+.word-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+/* ── Flash animation when letter commits ─────────── */
+@keyframes flash-commit {
+  0%   { background: rgba(124,106,245,0.35); }
+  100% { background: transparent; }
+}
+.flash { animation: flash-commit 0.4s ease-out; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+{% endblock %}

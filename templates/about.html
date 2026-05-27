@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}About • Sign Language Coach{% endblock %}
+
+{% block content %}
+  <section class="page-section">
+    <div class="page-header">
+      <h1>About the Sign Language Coaching &amp; Translation System</h1>
+      <p>
+        This project is designed to make communication between hearing‑impaired
+        individuals and the general population feel natural, intuitive, and
+        human. It blends modern computer vision with language intelligence to
+        move beyond literal recognition into meaningful understanding.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <h2>The problem</h2>
+        <p>
+          Sign language is expressive and powerful, but only a small
+          percentage of hearing people can understand it. In classrooms,
+          workplaces, hospitals, and public spaces, this gap creates silence
+          where there should be conversation.
+        </p>
+        <p>
+          Existing tools often translate one sign at a time or require
+          expensive dedicated hardware. They struggle to turn sequences of
+          signs into sentences that capture the intent behind the gesture.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h2>The solution</h2>
+        <p>
+          This system turns any standard camera into an intelligent
+          sign‑language companion. Using YOLOv11‑based models trained on
+          letters and words, it detects hand signs in real time and maps them
+          to tokens.
+        </p>
+        <p>
+          A Large Language Model then rewrites these tokens into natural,
+          grammatically correct sentences, so what appears on screen or is
+          spoken aloud feels like a human explanation, not just a raw
+          transcription.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h2>Core components</h2>
+        <ul class="feature-list">
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong>YOLOv11 for detection</strong>
+              <p>
+                Three custom‑trained detectors: one for alphabet letters
+                (<code>lettersbest.pt</code>) and two for different word
+                vocabularies (<code>wordbest.pt</code> and
+                <code>word2best.pt</code>), running together on each frame.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong>LLM for language shaping</strong>
+              <p>
+                Recognized signs become word sequences, which an LLM refines
+                into smooth sentences, handling ordering, grammar, and
+                context‑aware phrasing.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <div>
+              <strong>Flask web experience</strong>
+              <p>
+                A lightweight web application hosts the full experience:
+                landing page, explanation, and a live prediction studio with
+                camera input, animated feedback, and sentence playback.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h2>Impact &amp; future work</h2>
+        <p>
+          As a prototype, this project demonstrates how vision models and
+          language models can cooperate to support accessibility and
+          education. With more training data, richer vocabularies, and
+          bidirectional translation (speech‑to‑sign), it can grow into a full
+          assistive platform.
+        </p>
+        <p>
+          The goal is not to replace human interpreters, but to provide a
+          scalable bridge where none exists today—making spontaneous,
+          everyday communication more inclusive for everyone.
+        </p>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

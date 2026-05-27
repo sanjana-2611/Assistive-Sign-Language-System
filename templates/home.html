@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Home • Sign Language Coach{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        Bridging Silence<br />
+        <span class="accent">With Intelligence</span>
+      </h1>
+      <p class="hero-subtitle">
+        A real-time Sign Language Coaching &amp; Translation System that reads
+        your hand gestures, converts them into text and speech, and reshapes
+        them into natural sentences using advanced YOLOv11 detection and a
+        Large Language Model.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ url_for('predict_page') }}" class="btn btn-primary">
+          Start Live Translation
+        </a>
+        <a href="{{ url_for('about') }}" class="btn btn-ghost">
+          Learn the Vision
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-label">Detection</span>
+          <span class="stat-value">YOLOv11</span>
+          <span class="stat-desc">Letters &amp; multi‑word signs</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Understanding</span>
+          <span class="stat-value">LLM</span>
+          <span class="stat-desc">Grammar‑aware sentence reconstruction</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Experience</span>
+          <span class="stat-value">Coaching</span>
+          <span class="stat-desc">Visual feedback &amp; pronunciation</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="glass-card hero-card">
+        <div class="pulse-ring"></div>
+        <div class="hero-screen">
+          <div class="hero-screen-header">
+            <span class="dot red"></span>
+            <span class="dot amber"></span>
+            <span class="dot green"></span>
+            <span class="hero-screen-title">Live Sign Stream</span>
+          </div>
+          <div class="hero-screen-body">
+            <div class="hero-wave"></div>
+            <div class="hero-hand-ghost"></div>
+            <p class="hero-caption">
+              “Recognizing gestures, composing meaning, speaking your intent.”
+            </p>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <span>Inclusive communication</span>
+          <span class="meta-separator">•</span>
+          <span>Assistive learning</span>
+          <span class="meta-separator">•</span>
+          <span>Real‑time translation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-grid">
+    <div class="section-card">
+      <h2>Why this project matters</h2>
+      <p>
+        Communication barriers isolate many deaf and hard‑of‑hearing
+        individuals from everyday interactions. Most people do not understand
+        sign language, which makes even simple tasks—asking for help, ordering
+        food, or joining a conversation—unnecessarily difficult.
+      </p>
+      <p>
+        This system acts as a quiet interpreter, turning hand gestures into
+        readable and speakable language, so both sides can focus on what
+        matters: the message, not the barrier.
+      </p>
+    </div>
+    <div class="section-card">
+      <h2>How it works</h2>
+      <ul class="feature-list">
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <strong>Multi‑model gesture detection</strong>
+            <p>
+              Three specialized YOLOv11 models track letters and different word
+              vocabularies to robustly recognize a wide range of hand signs.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <strong>Semantic sentence building</strong>
+            <p>
+              Instead of outputting broken word‑by‑word translations, an LLM
+              rearranges the recognized tokens into fluent, grammatically
+              correct sentences.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <strong>Coaching‑friendly feedback</strong>
+            <p>
+              Visual overlays and text feedback help learners see exactly how
+              their signs are interpreted, reinforcing correct gestures.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+{% endblock %}
+

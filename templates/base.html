@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Sign Language Coach{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="bg-orbits">
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="orbit orbit-3"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-mark">SL</span>
+        <span class="logo-text">Sign Coach</span>
+      </div>
+      <nav class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('predict_page') }}" class="primary-link">
+          Start Translating
+        </a>
+      </nav>
+    </header>
+
+    <main class="page-container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <span>Sign Language Coaching &amp; Translation System</span>
+      <span class="footer-dot">•</span>
+      <span>Powered by YOLOv11 + LLM</span>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
+

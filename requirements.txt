@@ -1,0 +1,12 @@
+flask
+ultralytics
+opencv-python
+torch
+torchvision
+torchaudio
+mediapipe
+numpy
+transformers
+Pillow
+requests
+wordfreq
